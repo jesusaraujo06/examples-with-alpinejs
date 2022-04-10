@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <!-- 
+    Con la directiva x-show ocultamos o mostramos un elemento
+   -->
+    <div x-data="{visible: false}">
+
+      <div x-show="visible">Some content</div>
+    
+    </div>
+
+
+    <div x-data="{ records: [1,2,3,4,5] }">
+
+      <!-- Podemos hacer cualquier tipo de validacion que retorne true o false -->
+      <div x-show="records.length > 1">Some array</div>
+    
+    </div>
+
+    
+    <div x-data="{ show: false }">
+
+      <button x-on:click="show = !show">Show</button>
+
+      <!-- Podemos hacer cualquier tipo de validacion que retorne true o false -->
+      <div x-show="show">Some button</div>
+    
+    </div>
+  
+
+    <!-- Incrementar un numero y mostrar un div cuando el numero sea igual a 10 -->
+    <div x-data="{ number: 0 }">
+
+      <button x-on:click="number++">increment</button>
+
+      <!-- Podemos hacer cualquier tipo de validacion que retorne true o false -->
+      <div x-text="number">Some button</div>
+    
+      <div x-show="number > 10">
+        Llegaste al 10
+      </div>
+    </div>
+  </body>
+</html>

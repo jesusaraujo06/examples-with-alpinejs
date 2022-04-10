@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <!-- 
+  <form action="">
+    <input type="checkbox" name="agreed">
+
+    <button type="submit">Submit</button>
+  </form> -->
+
+    <!-- 
+      En un input checkbox el x-model se va a modificar segun el estado de checked
+     -->
+    <div x-data="{ agreed: false}">
+      <input type="checkbox" x-model="agreed" />
+      <span x-show="agreed"> You have agreed </span>
+    </div>
+
+    <br />
+
+    <!-- 
+      Trabajando con un array de inputs y enviarlos con un form
+     -->
+    <form
+      x-data="{ 
+        users: [] ,
+
+        deleteUsers() {
+          console.log(this.users);
+          alert('mira la consola');
+        }
+
+      }"
+      x-on:submit.prevent="deleteUsers"
+    >
+      <input type="checkbox" x-model="users" value="1" /> Alex
+      <input type="checkbox" x-model="users" value="2" /> Billy
+      <input type="checkbox" x-model="users" value="3" /> Mabel
+
+      <button type="submit">Delete</button>
+    </form>
+
+    <br />
+
+    <!-- 
+      Ejercicio con select, si a la variable plan le pasamos un valor por inicial por defecto, lo tomará el select
+     -->
+    <div x-data="{plan: 'monthly'}">
+      <select x-model="plan">
+        <option value="">Please choose</option>
+        <option value="yearly">Yearly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+
+      <!-- 
+        Esta etiqueta solo se mostrará si plan tiene algun valor
+       -->
+      <span x-show="plan" x-text="`You've chosen the ${plan} plan`"></span>
+    </div>
+
+    <br />
+
+    <div x-data="{ plan: 'monthly' }">
+      <input type="radio" name="plan" value="monthly" x-model="plan" /> Monthly
+      <input type="radio" name="plan" value="yearly" x-model="plan" /> Yearly
+      <br />
+      <span x-show="plan" x-text="`You've chosen the ${plan} plan`"></span>
+    </div>
+  </body>
+</html>

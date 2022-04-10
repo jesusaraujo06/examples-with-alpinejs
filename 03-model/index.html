@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+
+  <!-- 
+
+    Directiva model, cambiar el valor de una variable en tiemo real
+
+   -->
+
+    <div x-data="{name: ''}">
+
+      <input type="text" x-model="name">
+
+      <div>
+        <span>Tu nombre es:</span>
+        <span x-text="name"></span>
+      </div>
+    
+    </div>
+
+    <br>
+
+    <!-- 
+      x-on:submit para cuando queramos enviar un formulario
+      O cuando queramos utilizar la funcion de enviar un formulario con la tecla enter
+
+      $event es el evento que se esta ejecutando, podemos acceder a el.
+      Es como si hicieramos un e.preventDefault();
+      Y con el podemos acceder al target $event.target.className;
+     -->
+    <form x-data="{name: ''}" x-on:submit="$event.preventDefault(); console.log($event.target.className); console.log(name)" class="soy una clase css">
+
+      <input type="text" x-model="name">
+
+      <div>
+        <span>Tu nombre es:</span>
+        <span x-text="name"></span>
+        <br>
+        <button type="submit">Submit</button>
+      </div>
+    
+    </form>
+
+    <br>
+
+    <!-- 
+
+      Cambiar un texto a mayusculas con un metodo
+     -->
+
+    <div x-data="{
+      name: '',
+
+      makeNameUpercase () {
+        this.name = this.name.toUpperCase();
+      }
+    }">
+      <input type="text" x-model="name">
+      <br>
+      <span x-text="name"></span>
+      <button x-on:click="makeNameUpercase()">Uppercase</button>
+    </div>
+
+
+  </body>
+</html>

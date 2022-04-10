@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <style>
+      .bold {
+        font-weight: bold;
+      }
+
+      .blue {
+        color: blue;
+      }
+
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 
+      Usar la directiva bind para modificar atributos de un elemento
+     -->
+    <div x-data="">
+      <span x-bind:class="{ 'blue': true }">Am i bold?</span>
+    </div>
+
+    <br />
+
+    <!-- 
+      Modificar atributos dinamicamente
+     -->
+    <div x-data="{selected: false}">
+      <span class="red" x-bind:class="{ 'bold': selected }">Am i bold?</span>
+
+      <button x-on:click="selected = true">Mkae it bold</button>
+    </div>
+  </body>
+</html>

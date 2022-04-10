@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <style>
+      /* 
+        Estilo global para componentes alpinejs.
+
+        A veces, cuando usa AlpineJS para una parte de su plantilla, hay un "blip" en el que puede ver su plantilla 
+        sin inicializar después de que se cargue la página, pero antes de que se cargue Alpine.
+
+        x-cloak soluciona este escenario ocultando el elemento al que está conectado hasta que Alpine esté completamente cargado en la página
+      */
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Componente alpine declarado con x-data y le pasamos la funcion data -->
+    <div x-data="data()">
+      <!-- x-model nos permite enlazar el valor de un elemento de entrada a los datos de Alpine.
+        y con debounce le decimos que la actualizacion del valor no se haga en tiempo real, si no que espere unos milisegundos -->
+      <input type="text" x-model.debounce="query" />
+
+      <!-- Mostrar la etiqueta p solo si la propiedad query tiene al menos un caracter -->
+      <p x-show="query.length" x-cloak>
+        Your search for <span x-text="query"></span> returned
+        <span x-text="resultsQuery.length"></span> results
+      </p>
+
+      <div>
+        <!-- Hacemos un iteracion o loop con los resultados
+          la key de cada iteracion sera la propiedad objectID que nos trae la api
+        -->
+        <template x-for="result in resultsQuery" :key="result.objectID">
+          <div>
+            <h4 x-text="result.title"></h4>
+            <a target="_blank" x-bind:href="result.url" x-text="result.url"></a>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <script>
+      function data() {
+        return {
+          query: "",
+          resultsQuery: [],
+
+          performSearch() {
+            fetch(`https://hn.algolia.com/api/v1/search?query=${this.query}`)
+              .then((response) => response.json())
+              // .hits es una propiedad del objeto retornado por la api algolia
+              .then((results) => {
+                console.log(results);
+                this.resultsQuery = results.hits;
+              });
+          },
+
+          // Si declaramos un metodo llamado init este se ejecutará automaticamente cuando se inicialice el componente
+          init() {
+            // Con el metodo magico $watch observamos si cambia el valor de la propiedad query del componente
+            // Entonces cada vez que cambie, mandamos a llamar el metodo performSearch y le pasamos el valor de query, ya que $watch nos trae el valor
+            this.$watch("query", (value) => {
+              // Impedir que se haga una peticion cuando el input esta vacio
+              if (this.query === "") {
+                this.resultsQuery = [];
+                return;
+              }
+              this.performSearch();
+            });
+          },
+        };
+      }
+    </script>
+  </body>
+</html>

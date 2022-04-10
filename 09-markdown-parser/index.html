@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/marked@2.1.3/marked.min.js"
+      defer
+    ></script>
+  </head>
+
+  <body>
+    <div
+      x-data="{
+      body: '',
+      markdown: '',
+      preview() {
+        this.markdown = window.marked(this.body)
+      }
+    }"
+    >
+      <div>
+        <div>
+          <textarea
+            cols="30"
+            rows="10"
+            x-model="body"
+            x-on:keypress="preview()"
+          >
+          </textarea>
+        </div>
+        <!-- <button x-on:click="preview()">Preview</button> -->
+      </div>
+
+      <!-- <div x-text="markdown"></div> -->
+      <div x-html="markdown"></div>
+    </div>
+  </body>
+</html>
