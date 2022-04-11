@@ -34,7 +34,7 @@
       <input type="text" x-model.debounce="query" />
 
       <!-- Mostrar la etiqueta p solo si la propiedad query tiene al menos un caracter -->
-      <p x-show="query.length" x-cloak>
+      <p x-show="resultsQuery.length" x-cloak>
         Your search for <span x-text="query"></span> returned
         <span x-text="resultsQuery.length"></span> results
       </p>
@@ -53,7 +53,7 @@
     </div>
 
     <script>
-      function data() {
+      window.data = function () {
         return {
           query: "",
           resultsQuery: [],
@@ -82,7 +82,7 @@
             });
           },
         };
-      }
+      };
     </script>
   </body>
 </html>
