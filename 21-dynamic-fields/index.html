@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job listing with Alpinejs</title>
+
+    <!-- El orden es importante -->
+    <!-- <script defer src="app.js"></script>  -->
+
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+      .row {
+        max-width: 80%;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body class="">
+    <div class="row" x-data="handler()">
+      <div class="col">
+        <table class="table table-bordered align-items-center table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>Text Feild 1</th>
+              <th>Text Feild 2</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(field, index) in fields" :key="index">
+              <tr>
+                <td x-text="index + 1"></td>
+                <td>
+                  <input
+                    x-model="field.txt1"
+                    type="text"
+                    name="txt1[]"
+                    class="form-control"
+                  />
+                </td>
+                <td>
+                  <input
+                    x-model="field.txt2"
+                    type="text"
+                    name="txt2[]"
+                    class="form-control"
+                  />
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-small"
+                    @click="removeField(index)"
+                  >
+                    &times;
+                  </button>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" class="text-right">
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  @click="addNewField()"
+                >
+                  + Add Row
+                </button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      function handler() {
+        return {
+          fields: [],
+          addNewField() {
+            this.fields.push({
+              txt1: "hola",
+              txt2: "",
+            });
+          },
+          removeField(index) {
+            this.fields.splice(index, 1);
+          },
+        };
+      }
+    </script>
+  </body>
+</html>

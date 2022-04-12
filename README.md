@@ -16,3 +16,9 @@ https://codepen.io/stephenoldham/pen/BapvyYr
 
 Otros ejemplos:
 https://github.com/Hujjat/learn-alpinejs
+
+UI Interactivity:
+https://www.youtube.com/watch?v=y4Ki5_Q2-gs&t=256s&ab_channel=AndreMadarang
+
+PHP Sandbox:
+https://phpsandbox.io/e/x/mhejs?layout=EditorPreview&defaultPath=%2F&theme=dark&showExplorer=no&openedFiles=&files=%2Fresources%2Fviews%2Fwelcome.blade.php
